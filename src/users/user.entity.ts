@@ -1,19 +1,29 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { user_vehicles } from '../vehicles/vehicles.enitity';
 
 @Entity()
-export class User {
+export class users {
   @PrimaryGeneratedColumn()
-  id: number;
-  @Column()
+  id_user: number;
+
+  @Column({ unique: true })
   full_name: string;
+
   @Column()
   phone_number: string;
-  @Column()
+
+  @Column({ unique: true })
   email: string;
+
   @Column()
   password: string;
+
   @Column()
   verification_pin: string;
+
   @Column()
   device_token: string;
+
+  @OneToMany((_type) => user_vehicles, (vehicle) => vehicle.users)
+  vehicles: user_vehicles;
 }
