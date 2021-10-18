@@ -1,6 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
-import { user_vehicles } from './vehicles.enitity';
+import { user_vehicles } from './vehicles.entity';
 import { RegisterVehicleDto } from './dto/register-vehicle.dto';
 
 @Controller('vehicles')
@@ -19,6 +27,13 @@ export class VehiclesController {
     return this.vehicleService.getUserVehicleById(id_user);
   }
 
+  @Get('/:id_vehicle')
+  async getSingleVehicle(
+    @Param('id_vehicle') id_vehicle: number,
+  ): Promise<user_vehicles> {
+    return this.vehicleService.getSingleVehicle(id_vehicle);
+  }
+
   @Post('/register')
   async registerVehicle(
     @Body() registerVehicleDTO: RegisterVehicleDto,
@@ -26,11 +41,10 @@ export class VehiclesController {
     return this.vehicleService.createVehicle(registerVehicleDTO);
   }
 
-  @Delete('/:id_vehicle')
-  async deleteVehicle(
-    @Param('id_vehicle') id_vehicle: number,
-  ): Promise<string> {
+  @Delete()
+  @HttpCode(204)
+  async deleteVehicle(@Body('id_vehicle') id_vehicle: number): Promise<string> {
     await this.vehicleService.deleteVehicle(id_vehicle);
-    return `Delete vehicle with id ${id_vehicle}`;
+    return `Vehicle with id ${id_vehicle} is deleted`;
   }
 }

@@ -6,4 +6,5 @@ export class LoginDto {
   email: string;
   @IsNotEmpty()
   password: string;
+  device_token: string;
 }

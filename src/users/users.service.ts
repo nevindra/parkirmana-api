@@ -17,7 +17,10 @@ export class UsersService {
   ) {}
 
   getAllUsers(): Promise<users[]> {
-    return this.userRepository.find();
+    return this.userRepository
+      .createQueryBuilder('users')
+      .orderBy('users.id_user')
+      .getMany();
   }
 
   async getUserById(id_user: number): Promise<users> {

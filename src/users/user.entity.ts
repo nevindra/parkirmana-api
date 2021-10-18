@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { user_vehicles } from '../vehicles/vehicles.enitity';
+import { user_vehicles } from '../vehicles/vehicles.entity';
 
 @Entity()
 export class users {
@@ -24,6 +24,7 @@ export class users {
   @Column()
   device_token: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @OneToMany((_type) => user_vehicles, (vehicle) => vehicle.users)
   vehicles: user_vehicles;
 }

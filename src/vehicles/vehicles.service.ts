@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { VehiclesRepository } from './vehicles.repository';
-import { user_vehicles } from './vehicles.enitity';
+import { user_vehicles } from './vehicles.entity';
 import { RegisterVehicleDto } from './dto/register-vehicle.dto';
 
 @Injectable()
@@ -25,6 +25,10 @@ export class VehiclesService {
       throw new NotFoundException(`User with id: ${id_user}, is not found.`);
     }
     return user;
+  }
+
+  async getSingleVehicle(id_vehicle: number): Promise<user_vehicles> {
+    return this.vehicleRepository.findOne({ id_vehicle });
   }
 
   async createVehicle(
@@ -47,6 +51,6 @@ export class VehiclesService {
   }
 
   async deleteVehicle(id_vehicle: number): Promise<void> {
-    await this.vehicleRepository.delete(id_vehicle);
+    await this.vehicleRepository.delete({ id_vehicle: id_vehicle });
   }
 }

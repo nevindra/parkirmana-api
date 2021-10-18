@@ -3,10 +3,17 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './DTO/create-user.dto';
 import { users } from './user.entity';
 import { LoginDto } from './DTO/login.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('users')
 export class UsersController {
-  constructor(private userService: UsersService) {}
+  constructor(
+    private userService: UsersService,
+    private configService: ConfigService,
+  ) {
+    console.log('TESTING');
+    console.log(configService.get('DATABASE_HOST'));
+  }
 
   @Get()
   getAllUsers(): Promise<users[]> {
@@ -24,7 +31,10 @@ export class UsersController {
   }
 
   @Post('/login')
-  login(@Body() loginUserDTO: LoginDto): Promise<users[]> {
+  login(
+    @Body()
+    loginUserDTO: LoginDto,
+  ): Promise<users[]> {
     return this.userService.login(loginUserDTO);
   }
 }

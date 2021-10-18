@@ -1,4 +1,4 @@
-import { user_vehicles } from './vehicles.enitity';
+import { user_vehicles } from './vehicles.entity';
 import { EntityRepository, Repository } from 'typeorm';
 
 @EntityRepository(user_vehicles)

@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { UsersRepository } from './users.repository';
 
 const mockUserRepository = () => ({
-  findOne: jest.fn(),
+  findOne: jest.fn().mockImplementation(),
 });
 
 describe('UsersService', () => {
