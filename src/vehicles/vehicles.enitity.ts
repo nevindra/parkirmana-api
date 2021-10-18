@@ -1,6 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
 import { users } from '../users/user.entity';
-import { JoinColumn } from 'typeorm/browser';
 
 @Entity()
 export class user_vehicles {
