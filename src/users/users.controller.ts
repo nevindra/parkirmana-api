@@ -3,17 +3,11 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './DTO/create-user.dto';
 import { users } from './user.entity';
 import { LoginDto } from './DTO/login.dto';
-import { ConfigService } from '@nestjs/config';
+import { VerifyDto } from './DTO/verify.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(
-    private userService: UsersService,
-    private configService: ConfigService,
-  ) {
-    console.log('TESTING');
-    console.log(configService.get('DATABASE_HOST'));
-  }
+  constructor(private userService: UsersService) {}
 
   @Get()
   getAllUsers(): Promise<users[]> {
@@ -21,7 +15,7 @@ export class UsersController {
   }
 
   @Get('/:id')
-  getTaskById(@Param('id') id: number): Promise<users> {
+  getUserById(@Param('id') id: number): Promise<users> {
     return this.userService.getUserById(id);
   }
 
@@ -36,5 +30,15 @@ export class UsersController {
     loginUserDTO: LoginDto,
   ): Promise<users[]> {
     return this.userService.login(loginUserDTO);
+  }
+
+  @Post('/send-sms')
+  sendSMS(@Body('phone_number') phone_number: string) {
+    return this.userService.sendSMS(phone_number);
+  }
+
+  @Post('/check-sms')
+  checkSMS(@Body() verifyDTO: VerifyDto) {
+    return this.userService.verifySMS(verifyDTO);
   }
 }

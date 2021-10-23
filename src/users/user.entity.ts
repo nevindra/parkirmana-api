@@ -19,9 +19,6 @@ export class users {
   password: string;
 
   @Column()
-  verification_pin: string;
-
-  @Column()
   device_token: string;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
